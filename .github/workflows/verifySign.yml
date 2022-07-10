@@ -38,7 +38,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: write pubkey to disk
-        run: echo '${{ secrets.COSIGN_PUBLIC_KEY }}' > cosign.pub
+        run: echo '${{ secrets.COSIGN_PUBKEY }}' > cosign.pub
         
       # Verify signing
       - name: Verify signing
