@@ -48,4 +48,4 @@ jobs:
         run: cosign attach attestation --attestation sbom-cli.json morwn/hello-container:latest
         
       - name: Cosign check attested SBOM
-        run: cosign verify-attestation --key cosign.key morwn/hello-container:latest
+        run: cosign verify-attestation --key cosign.pub morwn/hello-container:latest
