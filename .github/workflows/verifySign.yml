@@ -37,9 +37,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      # Verify signing
-      - name: Verify signing (nationservice)
-        run: cosign verify --key .github/workflows/cosign.pub morwn/hello-container:latest
+      - name: write pubkey to disk
+        run: echo '${{ secrets.COSIGN_PUBLIC_KEY }}' > cosign.pub
         
-      - name: Cosign check attested SBOM (nationservice)
+      # Verify signing
+      - name: Verify signing
+        run: cosign verify --key cosign.pub morwn/hello-container:latest
+
+      - name: Attach sbom to Image
+        run: cosign attach attestation --attestation sbom-cli.json morwn/hello-container:latest
+        
+      - name: Cosign check attested SBOM
         run: cosign verify-attestation --key cosign.key morwn/hello-container:latest
