@@ -45,7 +45,7 @@ jobs:
         run: cosign verify --key cosign.pub morwn/hello-container:latest
 
       - name: Attach sbom to Image
-        run: cosign attach attestation --attestation sbom-cli.json morwn/hello-container:latest
+        run: cosign attach attestation sbom-cli.json morwn/hello-container:latest
         
       - name: Cosign check attested SBOM
         run: cosign verify-attestation --key cosign.pub morwn/hello-container:latest
